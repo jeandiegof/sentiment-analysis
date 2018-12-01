@@ -7,5 +7,6 @@
 #define MAXIMUM_LINE_SIZE   1000
 
 Status handle_words(FILE **file);
+Status handle_lexicon(FILE **file);
 
 #endif //SENTIMENT_ANALYSIS_PARSER_H

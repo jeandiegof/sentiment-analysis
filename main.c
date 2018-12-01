@@ -33,7 +33,9 @@ int main(int argc, char** argv) {
 
     tree = insert(tree, data3);
     tree = insert(tree, data2);
-    printf("On the left: %s\n", tree->left->data.word);
-    printf("On the right: %s\n", tree->right->data.word);
+    //printf("On the left: %s\n", tree->left->data.word);
+    //printf("On the right: %s\n", tree->right->data.word);
+
+    handle_lexicon(&lexicon);
     return 0;
 }
