@@ -4,6 +4,7 @@
 #include "arguments.h"
 #include "parser.h"
 #include "binary-tree.h"
+#include "avl-tree.h"
 
 int comp = 0;
 
@@ -25,6 +26,9 @@ int main(int argc, char** argv) {
     Node *tree2 = new_tree();
     // full fill the tree
     handle_lexicon(&lexicon, &tree2);
+
+    printf("FINDME %s | ", tree2->data.word);
+
     // search for the words in the tree
     handle_sentences(&sentences, &output, &tree2);
     // prints the number of compares
