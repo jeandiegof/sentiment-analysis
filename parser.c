@@ -6,7 +6,7 @@
 
 static void str_to_lower(char *str) {
     while(*str != '\0') {
-        *str = tolower(*str);
+        *str = (char) tolower(*str);
         str++;
     }
 }
@@ -25,7 +25,7 @@ Status handle_words(FILE **file) {
         this_word = strtok(line, word_separators);
         while (this_word != NULL) {
             str_to_lower(this_word);
-            printf("%s\n", this_word);
+            //printf("%s\n", this_word);
             this_word = strtok(NULL, word_separators);
         }
     }
