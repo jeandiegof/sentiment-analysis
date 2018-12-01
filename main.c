@@ -1,5 +1,8 @@
+// C
 #include <stdio.h>
+// Local
 #include "arguments.h"
+#include "parser.h"
 
 int main(int argc, char** argv) {
     if (!is_argc_valid(argc)) {
@@ -15,7 +18,8 @@ int main(int argc, char** argv) {
         return status;
     }
 
-    
+    handle_words(&sentences);
+
 
     return 0;
 }

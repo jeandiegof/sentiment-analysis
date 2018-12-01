@@ -3,7 +3,7 @@
 uint8_t is_argc_valid(int argc) {
     return (uint8_t) (argc == 4);
 }
-    
+
 char* get_filename(Files file, char** argv) {
     return argv[file];
 }

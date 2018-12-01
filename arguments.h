@@ -1,6 +1,7 @@
 #ifndef SENTIMENT_ANALYSIS_ARGUMENTS_H
 #define SENTIMENT_ANALYSIS_ARGUMENTS_H
 
+// C
 #include <stdint-gcc.h>
 #include <string.h>
 #include <stdio.h>
@@ -17,7 +18,8 @@ typedef enum {
     ERROR_OPENING_LEXICON,
     ERROR_OPENING_SENTENCES,
     ERROR_CREATING_OUTPUT,
-    OK,
+    ERROR_STREAM_INVALID,
+    OK
 } Status;
 
 uint8_t is_argc_valid(int argc);
