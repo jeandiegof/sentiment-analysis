@@ -7,7 +7,7 @@
 
 #define MAXIMUM_LINE_SIZE   1000
 
-Status handle_words(FILE **file);
+Status handle_sentences(FILE **file, Node **tree);
 Status handle_lexicon(FILE **file, Node **tree);
 
 #endif //SENTIMENT_ANALYSIS_PARSER_H

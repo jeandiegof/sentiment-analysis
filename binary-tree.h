@@ -20,5 +20,6 @@ typedef struct Node {
 Node* new_node(Data data);
 Node* new_tree();
 Node* insert(Node *tree, Data data);
+Node* search(Node* tree, char* str);
 
 #endif //SENTIMENT_ANALYSIS_BINARY_TREE_H

@@ -18,7 +18,7 @@ Node* new_node(Data data) {
     node->data = data;
     node->left = NULL;
     node->right = NULL;
-    printf("%s %s:%d: node created successfully\n", __FILE__, __func__, __LINE__);
+    //printf("%s %s:%d: node created successfully\n", __FILE__, __func__, __LINE__);
     return node;
 }
 
@@ -39,4 +39,21 @@ Node* insert(Node *tree, Data data) {
         tree->right = insert(tree->right, data);
     }
     return tree;
+}
+
+Node* search(Node* tree, char* str) {
+    if (tree == NULL) {
+        //printf("%s:%d: not found\n", __func__, __LINE__);
+        return NULL;
+    }
+
+    const int position = strcmp(str, tree->data.word);
+    if (position == 0) {
+        //printf("\033[33m found! \033[0m");
+        return tree;
+    } else if (position < 0) {
+        return search(tree->left, str);
+    } else {
+        return search(tree->right, str);
+    }
 }

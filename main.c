@@ -13,29 +13,17 @@ int main(int argc, char** argv) {
 
     FILE *lexicon = NULL;
     FILE *sentences = NULL;
+    FILE *output = NULL;
 
-    Status status = handle_files(&lexicon, &sentences, argv);
+    Status status = handle_files(&lexicon, &sentences, &output, argv);
     if (status != OK) {
         return status;
     }
 
-    handle_words(&sentences);
-
-    Data data;
-    strcpy(data.word, "teste");
-    data.value = -1;
-    Node* tree = new_tree();
-    tree = insert(tree, data);
-
-    Data data2 = {"abacate", 0};
-    Data data3 = {"white", 0};
-
-
-    tree = insert(tree, data3);
-    tree = insert(tree, data2);
-    //printf("On the left: %s\n", tree->left->data.word);
-    //printf("On the right: %s\n", tree->right->data.word);
-
-    handle_lexicon(&lexicon, &tree);
+    Node *tree2 = new_tree();
+    // full fill the tree
+    handle_lexicon(&lexicon, &tree2);
+    // search for the words in the tree
+    handle_sentences(&sentences, &tree2);
     return 0;
 }

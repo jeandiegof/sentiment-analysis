@@ -29,6 +29,7 @@ static Data tokenize_line (char* line) {
     while (this_word != NULL) {
         if(flag == 0) {
             printf(" %s |", this_word);
+            str_to_lower(this_word);
             strcpy(data.word, this_word);
             flag = 1;
         } else {
@@ -43,23 +44,44 @@ static Data tokenize_line (char* line) {
     return data;
 }
 
-Status handle_words(FILE** file) {
+static int get_line_polarity(char *line, Node **tree) {
+    const char word_separators[] = {" `,.&*%\?!;/-'@\"$#=><()][}{:\n\t"};
+
+    Node *node;
+    int polarity = 0;
+
+    char* this_word;
+    this_word = strtok(line, word_separators);
+    while (this_word != NULL) {
+        str_to_lower(this_word);
+        node = search(*tree, this_word);
+        if (node != NULL) {
+            //printf("\n\tSearch %s", this_word);
+            //printf("\n\tFound %s | Value: %d\n", node->data.word, node->data.value);
+            polarity += node->data.value;
+        }
+        this_word = strtok(NULL, word_separators);
+    }
+    return polarity;
+}
+
+Status handle_sentences(FILE** file, Node **tree) {
     if (*file == NULL) {
         fprintf(stderr, "%s %s:%d: file stream is invalid\n", __FILE__, __func__, __LINE__);
         return ERROR_STREAM_INVALID;
     }
 
     char line[MAXIMUM_LINE_SIZE];
-    char word_separators[] = {" `,.&*%\?!;/-'@\"$#=><()][}{:\n\t"};
-    char* this_word;
+    char cp_line[MAXIMUM_LINE_SIZE];
 
     while (fgets(line, MAXIMUM_LINE_SIZE, *file)) {
-        this_word = strtok(line, word_separators);
-        while (this_word != NULL) {
-            str_to_lower(this_word);
-            //printf("%s\n", this_word);
-            this_word = strtok(NULL, word_separators);
+        if (!is_line_valid(line, strlen(line))) {
+            continue;
         }
+        // makes a copy of line
+        strcpy(cp_line, line);
+        const int polarity = get_line_polarity(line, tree);
+        printf("%d %s", polarity, cp_line);
     }
 }
 

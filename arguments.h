@@ -19,13 +19,12 @@ typedef enum {
     ERROR_OPENING_SENTENCES,
     ERROR_CREATING_OUTPUT,
     ERROR_STREAM_INVALID,
-    ERROR_INSUFFICIENT_MEMORY,
     OK
 } Status;
 
 uint8_t is_argc_valid(int argc);
 char* get_filename(Files file, char** argv);
 
-Status handle_files(FILE** lexicon, FILE** sentences, char** argv);
+Status handle_files(FILE** lexicon, FILE** sentences, FILE** output, char** argv);
 
 #endif //SENTIMENT_ANALYSIS_ARGUMENTS_H
