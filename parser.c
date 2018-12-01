@@ -4,6 +4,7 @@
 #include <stdlib.h>
 // Local
 #include "parser.h"
+#include "binary-tree.h"
 
 static void str_to_lower(char* str) {
     while(*str != '\0') {
@@ -17,22 +18,29 @@ static int is_line_valid(char* str, size_t size) {
     return size > 2;
 }
 
-static void tokenize_line (char* line) {
+static Data tokenize_line (char* line) {
     char *this_word = NULL;
     char word_separators[] = {"\t\n"};
+
     uint8_t flag = 0;
+    Data data = {0};
 
     this_word = strtok(line, word_separators);
     while (this_word != NULL) {
         if(flag == 0) {
             printf(" %s |", this_word);
+            strcpy(data.word, this_word);
             flag = 1;
         } else {
-            printf(" %d\n", atoi(this_word));
+            // atoi doesn't throw any error if the conversion fails. That's a bottle neck
+            const int value = atoi(this_word);
+            printf(" %d\n", value);
+            data.value = value;
             flag = 0;
         }
         this_word = strtok(NULL, word_separators);
     }
+    return data;
 }
 
 Status handle_words(FILE** file) {
@@ -55,20 +63,21 @@ Status handle_words(FILE** file) {
     }
 }
 
-Status handle_lexicon(FILE** file) {
+Status handle_lexicon(FILE** file, Node **tree) {
     if (*file == NULL) {
         fprintf(stderr, "%s %s:%d: file stream is invalid\n", __FILE__, __func__, __LINE__);
         return ERROR_STREAM_INVALID;
     }
 
     char line[MAXIMUM_LINE_SIZE] = {0};
-    char word_separators[] = {"\t\n"};
-    char* this_word = NULL;
+    Data data;
 
     while (fgets(line, MAXIMUM_LINE_SIZE, *file)) {
         if(!is_line_valid(line, strlen(line))) {
             continue;
         }
-        tokenize_line(line);
+        // gets the word and its value from the line
+        data = tokenize_line(line);
+        *tree = insert(*tree, data);
     }
 }

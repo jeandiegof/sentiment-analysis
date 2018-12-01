@@ -36,6 +36,6 @@ int main(int argc, char** argv) {
     //printf("On the left: %s\n", tree->left->data.word);
     //printf("On the right: %s\n", tree->right->data.word);
 
-    handle_lexicon(&lexicon);
+    handle_lexicon(&lexicon, &tree);
     return 0;
 }

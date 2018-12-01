@@ -18,18 +18,18 @@ Node* new_node(Data data) {
     node->data = data;
     node->left = NULL;
     node->right = NULL;
-    printf("%s %s:%d: binary tree created successfully\n", __FILE__, __func__, __LINE__);
+    printf("%s %s:%d: node created successfully\n", __FILE__, __func__, __LINE__);
     return node;
 }
 
 Node* insert(Node *tree, Data data) {
     if (tree == NULL) {
-        printf("%s %s:%d: insert on empty tree\n", __FILE__, __func__, __LINE__);
-        printf("%s %s:%d: creating new tree to keep going\n", __FILE__, __func__, __LINE__);
+        //printf("%s %s:%d: insert on empty tree\n", __FILE__, __func__, __LINE__);
+        //printf("%s %s:%d: creating new tree to keep going\n", __FILE__, __func__, __LINE__);
         return new_node(data);
     }
 
-    int position = strcmp(data.word, tree->data.word);
+    const int position = strcmp(data.word, tree->data.word);
     // negative: data.word is lexicographically smaller than tree->data.word
     // zero: the strings are equal
     // positive: data.word is lexicographically bigger than tree->data.word
