@@ -3,6 +3,7 @@
 // Local
 #include "arguments.h"
 #include "parser.h"
+#include "binary-tree.h"
 
 int main(int argc, char** argv) {
     if (!is_argc_valid(argc)) {
@@ -20,6 +21,19 @@ int main(int argc, char** argv) {
 
     handle_words(&sentences);
 
+    Data data;
+    strcpy(data.word, "teste");
+    data.value = -1;
+    Node* tree = new_tree();
+    tree = insert(tree, data);
 
+    Data data2 = {"abacate", 0};
+    Data data3 = {"white", 0};
+
+
+    tree = insert(tree, data3);
+    tree = insert(tree, data2);
+    printf("On the left: %s\n", tree->left->data.word);
+    printf("On the right: %s\n", tree->right->data.word);
     return 0;
 }
