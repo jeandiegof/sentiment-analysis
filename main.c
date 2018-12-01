@@ -11,7 +11,11 @@ int main(int argc, char** argv) {
     FILE *sentences = NULL;
 
     Status status = handle_files(&lexicon, &sentences, argv);
+    if (status != OK) {
+        return status;
+    }
 
-    printf("\n");
+    
+
     return 0;
 }
