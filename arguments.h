@@ -26,5 +26,6 @@ uint8_t is_argc_valid(int argc);
 char* get_filename(Files file, char** argv);
 
 Status handle_files(FILE** lexicon, FILE** sentences, FILE** output, char** argv);
+Status append_in_output(FILE* output, char *line);
 
 #endif //SENTIMENT_ANALYSIS_ARGUMENTS_H

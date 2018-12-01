@@ -1,3 +1,4 @@
+// Local
 #include "arguments.h"
 
 uint8_t is_argc_valid(int argc) {
@@ -29,12 +30,12 @@ Status handle_files(FILE** lexicon, FILE** sentences, FILE** output, char** argv
     return OK;
 }
 
-Status append_in_output(FILE** output, char *line) {
-    if (*output == NULL) {
+Status append_in_output(FILE* output, char *line) {
+    if (output == NULL) {
         fprintf(stderr, "Error handling output file.");
         return ERROR_STREAM_INVALID;
     }
-    fprintf(*output, "teste");
+    fwrite(line, 1, strlen(line), output);
 }
 
 Status close_files(FILE** lexicon, FILE** sentences, FILE** output) {

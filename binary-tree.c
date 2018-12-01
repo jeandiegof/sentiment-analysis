@@ -4,6 +4,8 @@
 // Local
 #include "binary-tree.h"
 
+extern int comp;
+
 Node* new_tree() {
     return NULL;
 }
@@ -50,10 +52,13 @@ Node* search(Node* tree, char* str) {
     const int position = strcmp(str, tree->data.word);
     if (position == 0) {
         //printf("\033[33m found! \033[0m");
+        comp++;
         return tree;
     } else if (position < 0) {
+        comp++;
         return search(tree->left, str);
     } else {
+        comp++;
         return search(tree->right, str);
     }
 }
