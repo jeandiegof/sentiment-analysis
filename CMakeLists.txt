@@ -3,4 +3,4 @@ project(sentiment_analysis C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(sentiment_analysis main.c)
+add_executable(sentiment_analysis main.c arguments.h)
