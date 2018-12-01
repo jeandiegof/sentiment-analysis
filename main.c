@@ -7,6 +7,11 @@ int main(int argc, char** argv) {
         fprintf(stderr, " Usage: %s lexical.txt sentences.txt output.txt", argv[0]);
     }
 
+    FILE *lexicon = NULL;
+    FILE *sentences = NULL;
+
+    Status status = handle_files(&lexicon, &sentences, argv);
+
     printf("\n");
     return 0;
 }
