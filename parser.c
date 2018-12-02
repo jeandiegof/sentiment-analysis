@@ -7,6 +7,8 @@
 #include "binary-tree.h"
 #include "arguments.h"
 
+#define PARSER_VERBOSE(f_, ...)     //printf(f_, ##__VA_ARGS__)
+
 static void str_to_lower(char* str) {
     while(*str != '\0') {
         *str = (char) tolower(*str);
@@ -29,14 +31,14 @@ static Data tokenize_line (char* line) {
     this_word = strtok(line, word_separators);
     while (this_word != NULL) {
         if(flag == 0) {
-            //printf(" %s |", this_word);
+            PARSER_VERBOSE(" %s |", this_word);
             str_to_lower(this_word);
             strcpy(data.word, this_word);
             flag = 1;
         } else {
             // atoi doesn't throw any error if the conversion fails. That's a bottle neck
             const int value = atoi(this_word);
-            //printf(" %d\n", value);
+            PARSER_VERBOSE(" %d\n", value);
             data.value = value;
             flag = 0;
         }
@@ -59,8 +61,8 @@ static int get_line_polarity(char *line, Node **tree) {
         str_to_lower(this_word);
         node = search(*tree, this_word);
         if (node != NULL) {
-            //printf("\n\tSearch %s", this_word);
-            //printf("\n\tFound %s | Value: %d\n", node->data.word, node->data.value);
+            PARSER_VERBOSE("\n\tSearch %s", this_word);
+            PARSER_VERBOSE("\n\tFound %s | Value: %d\n", node->data.word, node->data.value);
             polarity += node->data.value;
         }
         this_word = strtok(NULL, word_separators);
@@ -87,7 +89,7 @@ Status handle_sentences(FILE** file, FILE** output, Node **tree) {
         const int polarity = get_line_polarity(line, tree);
         sprintf(output_line, "%d %s", polarity, cp_line);
         append_in_output(*output, output_line);
-        //printf("%d %s", polarity, cp_line);
+        PARSER_VERBOSE("%d %s", polarity, cp_line);
     }
 }
 

@@ -6,7 +6,7 @@
 // Local
 #include "avl-tree.h"
 
-#define VERBOSE(f_, ...)  printf(f_, ##__VA_ARGS__)
+#define AVL_VERBOSE(f_, ...)  //printf(f_, ##__VA_ARGS__)
 
 extern int comp;
 
@@ -29,7 +29,7 @@ static int get_balance(Node* node) {
 }
 
 static Node* right_rotate(Node *node) {
-    VERBOSE("avl-tree:right_rotate\n");
+    AVL_VERBOSE("avl-tree:right_rotate\n");
 
     Node *new_node = node->left;
     Node *tmp = new_node->right;
@@ -44,7 +44,7 @@ static Node* right_rotate(Node *node) {
 }
 
 static Node* left_rotate(Node *node) {
-    VERBOSE("avl-tree:right_rotate\n");
+    AVL_VERBOSE("avl-tree:right_rotate\n");
 
     Node *new_node = node->right;
     Node *tmp = new_node->left;
@@ -62,13 +62,13 @@ static Node* left_rotate(Node *node) {
 }
 
 static Node* double_right_rotate(Node *node) {
-    VERBOSE("avl-tree:double_right_rotate\n");
+    AVL_VERBOSE("avl-tree:double_right_rotate\n");
     node->left =  left_rotate(node->left);
     return right_rotate(node);
 }
 
 static Node* double_left_rotate(Node *node) {
-    VERBOSE("avl-tree:double_left_rotate\n");
+    AVL_VERBOSE("avl-tree:double_left_rotate\n");
     node->right = right_rotate(node->right);
     return left_rotate(node);
 }
@@ -92,7 +92,7 @@ Node* new_node(Data data) {
 }
 
 Node* insert(Node *tree, Data data) {
-    printf("Inserting node!\n");
+    AVL_VERBOSE("Inserting node!\n");
     if (tree == NULL) {
         return new_node(data);
     }
@@ -114,7 +114,7 @@ Node* insert(Node *tree, Data data) {
     tree->height = 1 + max;
 
     const int balance = get_balance(tree);
-    printf("Max: %d Height: %d | Balance: %d\n", max, tree->height, balance);
+    AVL_VERBOSE("Max: %d Height: %d | Balance: %d\n", max, tree->height, balance);
     if (balance == 0) {
         return tree;
     }
@@ -143,13 +143,13 @@ Node* insert(Node *tree, Data data) {
 
 Node* search(Node* tree, char* str) {
     if (tree == NULL) {
-        printf("%s:%d: not found\n", __func__, __LINE__);
+        AVL_VERBOSE("%s:%d: not found\n", __func__, __LINE__);
         return NULL;
     }
 
     const int position = strcmp(str, tree->data.word);
     if (position == 0) {
-        printf("\033[33m found! \033[0m");
+        AVL_VERBOSE("\033[33m found! \033[0m");
         comp++;
         return tree;
     } else if (position < 0) {
