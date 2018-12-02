@@ -6,7 +6,13 @@
 // Local
 #include "avl-tree.h"
 
+#define VERBOSE(f_, ...)  printf(f_, ##__VA_ARGS__)
+
 extern int comp;
+
+int maximum(int a, int b) {
+    return (a > b) ? a : b;
+}
 
 static int get_height(Node* node) {
     if (node != NULL) {
@@ -23,44 +29,47 @@ static int get_balance(Node* node) {
 }
 
 static Node* right_rotate(Node *node) {
-    Node* tmp = (Node*) malloc(sizeof(Node));
+    VERBOSE("avl-tree:right_rotate\n");
 
-    tmp = node->right;
-    node->right = tmp->left;
-    tmp->left = node;
+    Node *new_node = node->left;
+    Node *tmp = new_node->right;
 
-    node->height = 1 + (get_height(node->left) > get_height(node->right)) ? \
-                                    get_height(node->left) : get_height(node->right);
+    new_node->right = node;
+    node->left = tmp;
 
-    tmp->height = 1 + (get_height(tmp->right) > node->height) ? \
-                                    get_height(tmp->right) : node->height;
+    node->height = 1 + maximum(get_height(node->left), get_height(node->right));
+    new_node->height = 1 + maximum(get_height(new_node->left), get_height(new_node->right));
 
-    return tmp;
+    return new_node;
 }
 
 static Node* left_rotate(Node *node) {
-    Node *tmp = (Node*) malloc(sizeof(Node));
+    VERBOSE("avl-tree:right_rotate\n");
 
-    tmp = node->left;
-    node->left = tmp->right;
-    tmp->right = node;
+    Node *new_node = node->right;
+    Node *tmp = new_node->left;
 
-    node->height = 1 + (get_height(node->left) > get_height(node->right)) ? \
-                                    get_height(node->left) : get_height(node->right);
+    new_node->left = node;
+    node->right = tmp;
 
-    tmp->height = 1 + (get_height(tmp->left) > node->height) ? \
-                                    get_height(tmp->left) : node->height;
+    node->height = 1 + maximum(get_height(node->left), \
+                               get_height(node->right));
 
-    return tmp;
+    new_node->height = 1 + maximum(get_height(new_node->left), \
+                                   get_height(new_node->right));
+
+    return new_node;
 }
 
 static Node* double_right_rotate(Node *node) {
-    node->right = left_rotate(node->right);
+    VERBOSE("avl-tree:double_right_rotate\n");
+    node->left =  left_rotate(node->left);
     return right_rotate(node);
 }
 
 static Node* double_left_rotate(Node *node) {
-    node->left = right_rotate(node->left);
+    VERBOSE("avl-tree:double_left_rotate\n");
+    node->right = right_rotate(node->right);
     return left_rotate(node);
 }
 
@@ -95,44 +104,41 @@ Node* insert(Node *tree, Data data) {
         tree->left = insert(tree->left, data);
     } else if (position > 0) {
         tree->right = insert(tree->right, data);
+    } else {
+        return tree;
     }
 
     const int left_height = get_height(tree->left);
     const int right_height = get_height(tree->right);
-    tree->height = 1 + (left_height > right_height) ? left_height : right_height;
+    const int max = (left_height > right_height) ? left_height : right_height;
+    tree->height = 1 + max;
 
     const int balance = get_balance(tree);
-
+    printf("Max: %d Height: %d | Balance: %d\n", max, tree->height, balance);
     if (balance == 0) {
         return tree;
     }
-
     // the balance is positive and the balance of the left subtree is also positive:
     //  right rotation
-    if (balance > 0 && get_balance(tree->left) > 0) {
-        tree->right = insert(tree->right, data);
+    if (balance > 1 && get_balance(tree->left) > 0) {
         return right_rotate(tree);
     }
     // the balance is negative and the balance of the right subtree is also negative:
     // left rotation
-    if (balance < 0 && get_balance(tree->right) < 0) {
-        tree->left = insert(tree->left, data);
+    if (balance < -1 && get_balance(tree->right) < 0) {
         return left_rotate(tree);
     }
-
     // the balance is positive and the balance of the left subtree is negative:
     // double right rotation
-    if (balance > 0 && get_balance(tree->left) < 0) {
-        tree->right = insert(tree->right, data);
+    if (balance > 1 && get_balance(tree->left) < 0) {
         return double_right_rotate(tree);
     }
-
     // the balance is negative and the balance of the right subtree is positive:
     // double left rotation
-    if (balance < 0 && get_balance(tree->right) > 0) {
-        tree->left = insert(tree->left, data);
-        return double_right_rotate(tree);
+    if (balance < -1 && get_balance(tree->right) > 0) {
+        return double_left_rotate(tree);
     }
+    return tree;
 }
 
 Node* search(Node* tree, char* str) {
