@@ -1,7 +1,7 @@
 // C
 #include <stdio.h>
 // Local
-#include "arguments.h"
+#include "files.h"
 #include "parser.h"
 #include "tree.h"
 

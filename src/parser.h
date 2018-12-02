@@ -2,7 +2,7 @@
 #define SENTIMENT_ANALYSIS_PARSER_H
 
 // Local
-#include "arguments.h"
+#include "files.h"
 #include "tree.h"
 
 #define MAXIMUM_LINE_SIZE   1000
