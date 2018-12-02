@@ -1,7 +1,8 @@
 #ifndef SENTIMENT_ANALYSIS_TREE_H
 #define SENTIMENT_ANALYSIS_TREE_H
 
-#define BINARY_TREE
+//#define BINARY_TREE
+#define AVL_TREE
 
 #ifdef AVL_TREE
 #include "avl-tree.h"
