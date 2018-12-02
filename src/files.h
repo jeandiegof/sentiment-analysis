@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define MAXIMUM_PATH_SIZE   30
+#define MAXIMUM_PATH_SIZE   200
 
 typedef enum {
     LEXICON = 1,
