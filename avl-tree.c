@@ -1,3 +1,5 @@
+#include "tree.h"
+#ifdef AVL_TREE
 // C
 #include <stddef.h>
 #include <stdlib.h>
@@ -160,3 +162,4 @@ Node* search(Node* tree, char* str) {
         return search(tree->right, str);
     }
 }
+#endif

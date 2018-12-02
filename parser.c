@@ -4,8 +4,6 @@
 #include <stdlib.h>
 // Local
 #include "parser.h"
-#include "binary-tree.h"
-#include "arguments.h"
 
 #define PARSER_VERBOSE(f_, ...)     //printf(f_, ##__VA_ARGS__)
 

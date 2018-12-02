@@ -3,8 +3,7 @@
 
 // Local
 #include "arguments.h"
-#include "binary-tree.h"
-#include "avl-tree.h"
+#include "tree.h"
 
 #define MAXIMUM_LINE_SIZE   1000
 

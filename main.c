@@ -3,8 +3,7 @@
 // Local
 #include "arguments.h"
 #include "parser.h"
-#include "binary-tree.h"
-#include "avl-tree.h"
+#include "tree.h"
 
 int comp = 0;
 
