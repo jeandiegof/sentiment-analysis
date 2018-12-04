@@ -5,9 +5,9 @@ Sentiment analysis is a technique that uses text processing for opinion mining, 
 ```
 ./sentiment-analysis lexicon.txt senteces.txt output.txt
 ```
-**lexicon.txt:** is a file with words and its values in the pattern *word\tvalue\n*  
-**sencentes.txt:** the target sentences (one per line)  
-**output.txt:** the file where the output will be saved in the pattern *sentence_value sentence\n*  
+**lexicon.txt:** is a file with words and its values in the pattern `word\tvalue\n`  
+**sencentes.txt:** the target sentences in the pattern `sentece\n`  
+**output.txt:** the file where the output will be saved in the pattern `sentence_value sentence\n`  
 
 ## tests
 
