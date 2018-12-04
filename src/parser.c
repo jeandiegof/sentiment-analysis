@@ -15,7 +15,7 @@ static void str_to_lower(char* str) {
 }
 
 static int is_line_valid(char* str, size_t size) {
-    // to be valid, the line must have at least \t and \n
+    // to be valid, the line must have at least \t and \n + data
     return size > 2;
 }
 
